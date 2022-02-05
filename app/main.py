@@ -86,8 +86,7 @@ app.include_router(vote.router)
 #path operation or route operation
 #decorator @ reference fast api instance and use a method
 #function to perform async tasks # path operation functions make as much descriptive # async (optional) # path operation function
-'''
+
 @app.get("/")
 def root():
     return {"message": "hello world"} # data sent back to a user
-'''
