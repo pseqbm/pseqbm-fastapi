@@ -89,4 +89,4 @@ app.include_router(vote.router)
 
 @app.get("/")
 def root():
-    return {"message": "hello world :)"} # data sent back to a user
+    return {"message": "hello world ()()()()()"} # data sent back to a user
