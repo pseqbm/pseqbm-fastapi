@@ -175,8 +175,4 @@ Werkzeug==2.0.2
 widgetsnbextension==3.5.1
 wrapt==1.13.3
 xmltodict==0.12.0
-<<<<<<< HEAD
 zipp==3.7.0
-=======
-zipp==3.7.0
->>>>>>> d609913883ef28451e5c6f6895ca9700226449ec
