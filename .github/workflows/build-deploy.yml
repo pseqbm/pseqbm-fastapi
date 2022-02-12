@@ -58,7 +58,16 @@ jobs:
       #- name: say hi to pseqbm
       #  run: echo "hello pseqbm" #it will echo our string # sudo apt install # command on the machine any linux command since we have access to cli
       #push these changes to git repo
+      
+      #after code is pushed the github action takes place and the workflow runs # when done successfully job will be marked as green
+      #we can generate workflow for specific branch
 
+      #run pytest
+      - name: test with pytest
+      #to run multiple commands we use pipe char |
+        run: |
+          pip install pytest
+          pytest
 
 
 
