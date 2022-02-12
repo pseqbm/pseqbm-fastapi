@@ -42,15 +42,17 @@ jobs:
  #https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
   job1:
     #job specific env variable
+    environment: #https://github.com/pseqbm/pseqbm-fastapi/settings/environments/403879418/edit
+      name: testing
     env:
-      DATABASE_HOSTNAME=localhost
-      DATABASE_PORT=5432
-      DATABASE_PASSWORD=password123
-      DATABASE_NAME=fastapi
-      DATABASE_USERNAME=postgres
-      SECRET_KEY=e5d1b41a7e46dc417f1012a43a6f4ff3b1484c890ba05e8ad52c5082dbc47fe6
-      ALGORITHM=HS256
-      ACCESS_TOKEN_EXPIRE_MINUTES=30
+      DATABASE_HOSTNAME: ${{secrets.DATABASE_HOSTNAME}}
+      DATABASE_PORT: ${{secrets.DATABASE_PORT}}
+      DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+      DATABASE_NAME: ${{secrets.DATABASE_NAME}}
+      DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
+      SECRET_KEY: ${{secrets.SECRET_KEY}}
+      ALGORITHM: ${{secrets.ALGORITHM}}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
     runs-on: ubuntu-latest
     #list of steps
     steps:
@@ -87,10 +89,9 @@ jobs:
       
   #job2:
   #this env var will be isolated from the above ones and vice versa
-
-
-    
-
-
-
+  #set a db on a runner itself or use a pointer to a brand new computer
+  #db can be hosted on heroku, AWS etc.
+  #do not hardcode values #store them as a secret #runner has access but others
+  #https://github.com/pseqbm/pseqbm-fastapi/settings/secrets/actions -> global secrets
+  #or set up env for testing, development, production
   
