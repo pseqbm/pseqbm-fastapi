@@ -53,6 +53,24 @@ jobs:
       SECRET_KEY: ${{secrets.SECRET_KEY}}
       ALGORITHM: ${{secrets.ALGORITHM}}
       ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
+    
+    #creating db service container with docker hub
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+          #custom database name
+          POSTGRES_DB: ${{secrets.DATABASE_NAME}}_test #string interpolation
+        ports:
+          - 5432:5432 #it does not work with env var
+        # Set health checks to wait until postgres has started #before any pytest runs postgresql has to load the db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     runs-on: ubuntu-latest
     #list of steps
     steps:
@@ -88,10 +106,21 @@ jobs:
       #env var issue # 8 validation error
       
   #job2:
+  
   #this env var will be isolated from the above ones and vice versa
   #set a db on a runner itself or use a pointer to a brand new computer
+  
   #db can be hosted on heroku, AWS etc.
   #do not hardcode values #store them as a secret #runner has access but others
   #https://github.com/pseqbm/pseqbm-fastapi/settings/secrets/actions -> global secrets
-  #or set up env for testing, development, production
   
+  #or set up as env for testing, development, production
+  #https://github.com/pseqbm/pseqbm-fastapi/settings/environments/403879418/edit
+  
+  #set up db on our runner so we can run the test
+  #https://docs.github.com/en/github-ae@latest/actions/using-containerized-services/creating-postgresql-service-containers
+  #github actions will allows us to spin up docker container with postgresql
+
+  #postgresql need to be up and ready before we start any tests
+
+
