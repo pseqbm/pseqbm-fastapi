@@ -31,10 +31,9 @@ on: [push, pull_request]
 
 
 #to make env var global
-'''
-env:
-  DATABASE_HOSTNAME=localhost
-'''
+#env:
+#  DATABASE_HOSTNAME=localhost
+
 jobs:
  #what type of machine we want run #github CI/CD tool will provide us a machine/tool 
  #we need to specify what operating system do we want to run it on  # we can run it on linux, windows, mac -> to test all three of them 
