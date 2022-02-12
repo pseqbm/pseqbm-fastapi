@@ -19,11 +19,12 @@ def login(user_credentials: OAuth2PasswordRequestForm=Depends(), db: Session = D
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=f"Invalid Credentials")
     
     # use verify function from utils.py # if hashed password from user matches the hashed password from the database
+    # incorrect login
     if not utils.verify(user_credentials.password, user.password):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=f"Invalid Credentials")
 
     # create a token # create access_token # data = the data we want to put inside the payload
-    access_token = oauth2.create_access_token(data={"user_id": user.id}) 
+    access_token = oauth2.create_access_token(data={"user_id": user.id})
 
     # return token  
     return {"access_token": access_token, "token_type": "bearer"}

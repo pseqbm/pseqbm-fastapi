@@ -21,7 +21,7 @@ SQLALCHEMY_DATABASE_URL = f"postgresql://{settings.database_username}:{settings.
 # the engine is responsible for establishing that connection
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
-# to talk to a db we need to make a use of session
+# to talk to a db we need to make a use of session # we pass database details
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine) # default values
 
 # in case we use sqllite:
@@ -36,9 +36,10 @@ Base = declarative_base()
 
 # Dependency # it should imported in our main file
 # Session Object is what responsible for talking with db # get connection or a session to a database # once the request is done close it out
-# it will create a session towards our database for every request to that specific api point
+# it will create a session towards our database for every request to that specific api point 
+#we pass a dependency into the route
 def get_db():
-    db = SessionLocal()
+    db = SessionLocal() #allows us to make queries using SQLAlchemy 
     try:
         yield db
     finally:

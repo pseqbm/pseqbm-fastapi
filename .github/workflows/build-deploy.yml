@@ -1,0 +1,59 @@
+#for formatting use tab
+name: Build and Deploy Code # name of our workflow
+
+#when should our CI/CD pipeline should run #either push or pull request or both
+#on: push
+#on: pull_request
+
+#every push on every single branch and every pull on every single branch 
+on: [push, pull_request] 
+#on:
+#  push: 
+#    branches: #["main", "another_branch", "feature_branch"] #all of the branches we should run before do push
+#      - "main"
+#      - "anotherbranch"
+#  pull_request:
+#    branches:
+#      - "test_branch"
+
+#https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+#https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+
+#create a job
+#A job is a set of steps in a workflow that execute on the same runner. 
+#Each step is either a shell script that will be executed, or an action that will be run. 
+#Steps are executed in order and are dependent on each other. 
+#Since each step is executed on the same runner, you can share data from one step to another. 
+#For example, you can have a step that builds your application followed by a step that tests the application that was built.
+#our runner is a VM
+#https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions
+#job is a list of steps
+
+jobs:
+ #what type of machine we want run #github CI/CD tool will provide us a machine/tool 
+ # we need to specify what operating system do we want to run it on  # we can run it on linux, windows, mac -> to test all three of them 
+ # since our production env runs on linux machine it makes to do all of the testing on the linux machine
+ #https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpull_requestpull_request_targetpathspaths-ignore
+ #https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
+  job1:
+    runs-on: ubuntu-latest
+    #list of steps
+    steps:
+    # give specific command we want to run as well as name # human readable name
+      - name: pulling git repo
+      # command that needs to run on our machine to pull repo # use pre built actions # type checkout in https://github.com/marketplace?type=
+      #https://github.com/marketplace/actions/checkout
+      # we can specify repo that we want to pull, however github already knows what repo we are working on # since we did git push
+        uses: actions/checkout@v2 # command from market place
+      - name: say hi to pseqbm
+        run: echo "hello pseqbm" #it will echo our string # sudo apt install # command on the machine any linux command since we have access to cli
+      
+      #push these changes to git repo
+
+
+
+    
+
+
+
+  

@@ -9,12 +9,15 @@ from ..database import engine, SessionLocal, get_db
 #import router object
 router = APIRouter(
     prefix="/users",
-    #grouping requests into categories
+    #grouping requests into categories 
     tags=["Users"]
 )
 
+# /users + /
+# /users
 #create user # post request to url of users
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)
+#expect a user to create a Schema
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)): # email and address from user will be stored inside the variabl user and will be pydantic object
     #before we create a user we need to create a hash to a password
     #hash the password - user.password # can be stored within user
