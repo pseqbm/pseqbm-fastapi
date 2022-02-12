@@ -163,7 +163,7 @@ jobs:
 #git push heroku main
 
 #OR REPLACE IT WITH COMMAND FROM A GITHUB ACTIONS MARKETPLACE
-#deploy to heroku
+#DEPLOY TO HEROKU
 #https://github.com/marketplace/actions/deploy-to-heroku
 #https://dashboard.heroku.com/account -> api key -> reveal
 #on github page create env production and add HEROKU_API_KEY, HEROKU_EMAIL, HEROKU_APP
@@ -182,4 +182,29 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP}} #Must be unique in Heroku
           heroku_email: ${{secrets.HEROKU_EMAIL}}
+    #instead of preconfigured github action -> we can also do manual approach:
+    #https://remarkablemark.org/blog/2021/03/12/github-actions-deploy-to-heroku/
+      
+    #DEPLOY OUR UPDATES TO UBUNTU SERVER
+    #WHAT EXACTLY ARE THE COMMANDS TO RUN TO UPDATE PROD ENV
+    #login to our ubuntu // ssh to it
+    #cd / app/src
+    #git pull
+    #systemctl restart api
+    #https://github.com/marketplace/actions/ssh-remote-commands
+    #port should default to port 22 that runs on our ubuntu server
+      - name: deploy to ubuntu server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.PROD_HOST}}
+          username: ${{secrets.PROD_USERNAME}}
+          password: ${{secrets.PROD_PASSWORD}}
+          #port: ${{secrets.PORT}}
+          script: |
+            cd app/src
+            git pull
+            sudo systemctl restart api
 
+
+    #behind the scenes the build-deploy file works as:
+    #if any mistakes made during the build job -> it won't execute any deploy job
