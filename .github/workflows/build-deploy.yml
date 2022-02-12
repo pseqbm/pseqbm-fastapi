@@ -31,24 +31,34 @@ on: [push, pull_request]
 
 jobs:
  #what type of machine we want run #github CI/CD tool will provide us a machine/tool 
- # we need to specify what operating system do we want to run it on  # we can run it on linux, windows, mac -> to test all three of them 
- # since our production env runs on linux machine it makes to do all of the testing on the linux machine
+ #we need to specify what operating system do we want to run it on  # we can run it on linux, windows, mac -> to test all three of them 
+ #since our production env runs on linux machine it makes sense to do all of the testing on the linux machine
  #https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpull_requestpull_request_targetpathspaths-ignore
  #https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
   job1:
     runs-on: ubuntu-latest
     #list of steps
     steps:
-    # give specific command we want to run as well as name # human readable name
+    #give specific command we want to run as well as name # human readable name
       - name: pulling git repo
-      # command that needs to run on our machine to pull repo # use pre built actions # type checkout in https://github.com/marketplace?type=
+      #command that needs to run on our machine to pull repo # use pre built actions # type checkout in https://github.com/marketplace?type=
       #https://github.com/marketplace/actions/checkout
-      # we can specify repo that we want to pull, however github already knows what repo we are working on # since we did git push
+      #we can specify repo that we want to pull, however github already knows what repo we are working on # since we did git push
         uses: actions/checkout@v2 # command from market place
-      - name: say hi to pseqbm
-        run: echo "hello pseqbm" #it will echo our string # sudo apt install # command on the machine any linux command since we have access to cli
-      
+      #after we pull our github repo we want to set up python 
+      #https://github.com/marketplace/actions/setup-python #matrices of python versions or operating systems are crucial
+      - name: Install python version 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: update pip
+        run: python -m pip install --upgrade pip #command on linux shell #since we are pulling all code with actions/checkout@v2 we have access to requirements.txt
+      - name: dependencies
+        run: pip install -r requirements.txt
+      #- name: say hi to pseqbm
+      #  run: echo "hello pseqbm" #it will echo our string # sudo apt install # command on the machine any linux command since we have access to cli
       #push these changes to git repo
+
 
 
 
