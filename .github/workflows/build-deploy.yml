@@ -206,7 +206,7 @@ jobs:
           script: |
             cd app/src
             git pull
-            echo ${{secrets.PROD_PASSWORD}} | sudo systemctl restart api
+            echo ${{secrets.PROD_PASSWORD}} | sudo -S systemctl restart api
           #2022/02/12 21:40:51 ssh: handshake failed: ssh: unable to authenticate, attempted methods [none], no supported methods remain
           #err: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
           #to use -S flag -> echo our sudo password pipe into a next command sudo -S accept what the password is the argument
