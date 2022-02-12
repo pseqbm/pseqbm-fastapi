@@ -5,3 +5,4 @@ notes.py
 tests/test_calculations.py 
 app/calculations.py
 tests/database.py
+tests/api/test_something.py
