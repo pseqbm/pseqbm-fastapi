@@ -75,10 +75,10 @@ jobs:
     #list of steps
     steps:
     #give specific command we want to run as well as name # human readable name
+    #command that needs to run on our machine to pull repo # use pre built actions # type checkout in https://github.com/marketplace?type=
+    #https://github.com/marketplace/actions/checkout
+    #we can specify repo that we want to pull, however github already knows what repo we are working on # since we did git push
       - name: pulling git repo
-      #command that needs to run on our machine to pull repo # use pre built actions # type checkout in https://github.com/marketplace?type=
-      #https://github.com/marketplace/actions/checkout
-      #we can specify repo that we want to pull, however github already knows what repo we are working on # since we did git push
         uses: actions/checkout@v2 # command from market place
       #after we pull our github repo we want to set up python 
       #https://github.com/marketplace/actions/setup-python #matrices of python versions or operating systems are crucial
@@ -108,8 +108,8 @@ jobs:
       # - name: Login to Docker Hub
       #   uses: docker/login-action@v1
       #   with:
-      #     username: ${{ secrets.DOCKER_HUB_USERNAME }}
-      #     password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      #     username: ${{secrets.DOCKER_HUB_USERNAME}}
+      #     password: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
       
       # #setup Docker Buildx to create the builder instance using a BuildKit container under the hood
       # - name: Set up Docker Buildx
@@ -130,11 +130,6 @@ jobs:
       # - name: Image digest
       #   run: echo ${{ steps.docker_build.outputs.digest }}
 
-
-
-
-
-  #job2: #if any
   #this env var will be isolated from the above ones and vice versa
   #set a db on a runner itself or use a pointer to a brand new computer
 
@@ -159,11 +154,33 @@ jobs:
 #docker is the last stage for CI portion of CI/DI pipeline
 
 #SETUP CD -> PUSH OUT NEW CODE TO OUR PRODUCTION NETWORK
-# SET UP ANOTHER JOB #BY DEFAULT JOBS ON GITHUB RUN IN Parallel
+#SET UP ANOTHER JOB #BY DEFAULT JOBS ON GITHUB RUN IN Parallel
+#from github actions marketplace
+#pull our github repo
+#install heroku cli
+#heroku login
+#add git remote for heroku
+#git push heroku main
+
+#OR REPLACE IT WITH COMMAND FROM A GITHUB ACTIONS MARKETPLACE
+#deploy to heroku
+#https://github.com/marketplace/actions/deploy-to-heroku
+#https://dashboard.heroku.com/account -> api key -> reveal
+#on github page create env production and add HEROKU_API_KEY, HEROKU_EMAIL, HEROKU_APP
   deploy:
     runs-on: ubuntu-latest
     needs: [build] #list of jobs before deploy job can run
-    
+    environment:
+      name: production
     steps:
-      - name: deploying stuff
-        run: echo "going to deploy some stuff"
+    # pull repo and deploy to heroku
+      - name: pulling git repo
+        uses: actions/checkout@v2 # command from market place
+      - name: deploying to heroku
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP}} #Must be unique in Heroku
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+
