@@ -202,11 +202,14 @@ jobs:
           host: ${{secrets.PROD_HOST}}
           username: ${{secrets.PROD_USERNAME}}
           password: ${{secrets.PROD_PASSWORD}}
+          key: ${{ secrets.SERVER_KEY }}
+          passphrase: ${{ secrets.SERVER_PASSPHRASE }}
           #port: ${{secrets.PORT}}
           script: |
             cd app/src
             git pull
-            echo ${{secrets.PROD_PASSWORD}} | sudo -S systemctl restart api
+            sudo -S systemctl restart api
+          #echo ${{secrets.PROD_PASSWORD}} | 
           #2022/02/12 21:40:51 ssh: handshake failed: ssh: unable to authenticate, attempted methods [none], no supported methods remain
           #err: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
           #to use -S flag -> echo our sudo password pipe into a next command sudo -S accept what the password is the argument
@@ -218,3 +221,5 @@ jobs:
           #https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-ubuntu-18-04
           #https://www.digitalocean.com/community/questions/how-can-i-changing-user-password-on-ubuntu-14-04
           #venv -> api -> nginx -> certbot -> firewal
+
+          #https://github.com/appleboy/ssh-action/issues/80
