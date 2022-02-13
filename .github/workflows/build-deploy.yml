@@ -176,15 +176,19 @@ jobs:
     environment:
       name: production
     steps:
-    # pull repo and deploy to heroku
-      - name: pulling git repo
-        uses: actions/checkout@v2 # command from market place
-      - name: deploying to heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP}} #Must be unique in Heroku
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
+    
+    
+    # # pull repo and deploy to heroku
+    #   - name: pulling git repo
+    #     uses: actions/checkout@v2 # command from market place
+    #   - name: deploying to heroku
+    #     uses: akhileshns/heroku-deploy@v3.12.12
+    #     with:
+    #       heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+    #       heroku_app_name: ${{secrets.HEROKU_APP}} #Must be unique in Heroku
+    #       heroku_email: ${{secrets.HEROKU_EMAIL}}
+
+
     #instead of preconfigured github action -> we can also do manual approach:
     #https://remarkablemark.org/blog/2021/03/12/github-actions-deploy-to-heroku/
       
@@ -204,11 +208,16 @@ jobs:
           password: ${{secrets.PROD_PASSWORD}}
           #key: ${{ secrets.SERVER_KEY }}
           #passphrase: ${{ secrets.SERVER_PASSPHRASE }}
-          port: ${{secrets.PROD_PORT}}
+          #port: ${{secrets.PROD_PORT}}
           script: |
             cd app/src
             git pull
             echo ${{secrets.PROD_PASSWORD}} | sudo -S systemctl restart api
+          #cd ${{ secrets.PROJECT_PATH }}
+          #sudo git checkout main
+          #sudo git pull origin main
+          #python3 manage.py migrate
+          #sudo systemctl restart api
           #2022/02/12 21:40:51 ssh: handshake failed: ssh: unable to authenticate, attempted methods [none], no supported methods remain
           #err: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
           #to use -S flag -> echo our sudo password pipe into a next command sudo -S accept what the password is the argument
