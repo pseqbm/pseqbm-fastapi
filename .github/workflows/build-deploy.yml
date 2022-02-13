@@ -204,7 +204,7 @@ jobs:
           password: ${{secrets.PROD_PASSWORD}}
           #key: ${{ secrets.SERVER_KEY }}
           #passphrase: ${{ secrets.SERVER_PASSPHRASE }}
-          port: ${{secrets.PROD_PORT]}}
+          port: ${{secrets.PROD_PORT}}
           script: |
             cd app/src
             git pull
