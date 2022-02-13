@@ -211,4 +211,9 @@ jobs:
           #err: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
           #to use -S flag -> echo our sudo password pipe into a next command sudo -S accept what the password is the argument
           #user update and password change 
-          #update starter user
+          #updated starter user and SSH keys
+          #https://cloud.digitalocean.com/account/security?i=7f60e5
+          
+          #CHANGING PASSWORD ONE MORE TIME
+          #https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-ubuntu-18-04
+          #https://www.digitalocean.com/community/questions/how-can-i-changing-user-password-on-ubuntu-14-04
