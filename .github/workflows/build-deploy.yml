@@ -197,7 +197,7 @@ jobs:
     #https://github.com/marketplace/actions/ssh-remote-commands
     #port should default to port 22 that runs on our ubuntu server
       - name: deploy to ubuntu server
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.4 #appleboy/ssh-action@master
         with:
           host: ${{secrets.PROD_HOST}}
           username: ${{secrets.PROD_USERNAME}}
